@@ -11,14 +11,14 @@ import path from 'path';
 async function initialize(){
     console.log(
         chalk.greenBright(
-        figlet.textSync("WIC", {
+        figlet.textSync("WIFF", {
             horizontalLayout: "full",
             verticalLayout: "default",
             font:"3D-ASCII"
         })
         )
     );
-    console.log(chalk.green.bold('Code to Word document jiff!'));
+    console.log(chalk.green.bold('Code to Word document in a jiff!'));
     const answers = await inquirer.prompt(questions)
     config.codeFolderPath = answers.codeFolderPath;
     config.height = answers.height;

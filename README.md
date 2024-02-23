@@ -1,4 +1,4 @@
-# WIC ✨ - Code to Word in Jiff! 
+# Wiff ✨ - Code to Word in Jiff! 
 ### a simple cli tool built to deal with lab work of computer lab 😌
 
 

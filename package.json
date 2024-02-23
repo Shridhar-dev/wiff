@@ -1,12 +1,20 @@
 {
-  "name": "wic",
+  "name": "wiff",
   "version": "1.0.0",
   "description": "",
-  "private": true,
+  "private": false,
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/index.js"
+  },
+  "files": [
+    "src",
+    "README.md"
+  ],
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/Shridhar-dev/wic"
   },
   "keywords": [],
   "author": "Shridhar Kamat",
