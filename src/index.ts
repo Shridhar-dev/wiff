@@ -1,10 +1,12 @@
+#!/usr/bin/env node
+
 import fs from 'fs'
 import inquirer from 'inquirer';
 import chalk from "chalk"
 import figlet from "figlet"
 import addCode from './addCode.js';
-import { questions } from './questions.js';
-import config from './config.js';
+import { questions } from './data/questions.js';
+import config from './config/index.js';
 import path from 'path';
 
 
@@ -20,14 +22,18 @@ async function initialize(){
     );
     console.log(chalk.green.bold('Code to Word document in a jiff!'));
     const answers = await inquirer.prompt(questions)
+
     config.codeFolderPath = answers.codeFolderPath;
     config.height = answers.height;
     config.width = answers.width;
     config.wordName = answers.wordName;
     config.outputFolderPath = answers.outputFolderPath;
+    
     const testFolder = config.codeFolderPath;
     const files = fs.readdirSync(testFolder);
+
     config.files = files.filter((file)=>path.extname(file) === ".c");
+
     if (!fs.existsSync("./tmp")){
         fs.mkdirSync("./tmp");
     }

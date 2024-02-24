@@ -1,15 +1,20 @@
 import pkg from 'active-win';
-import robot from 'robotjs'
+import robot, { type Bitmap } from 'robotjs'
 import jimp from "jimp"
-import config from './config.js';
+import config from './config/index.js';
+import { type Result } from 'active-win';
 const activeWindow = pkg;
 
 const getActiveWindow = async() =>{
-    const { bounds, owner, title } =(await activeWindow());
-    return { bounds, name:owner.name, title }
+    const currentWindow:Result | undefined =(await activeWindow());
+    return { 
+        bounds:currentWindow?.bounds, 
+        name:currentWindow?.owner.name, 
+        title:currentWindow?.title 
+    }
 }
 
-function screenCaptureToFile2(robotScreenPic, path) {
+function screenCaptureToFile2(robotScreenPic:Bitmap, path:string) {
     return new Promise((resolve, reject) => {
         try {
             const image = new jimp(robotScreenPic.width, robotScreenPic.height);
@@ -30,14 +35,14 @@ function screenCaptureToFile2(robotScreenPic, path) {
     });
 }
 setTimeout(async()=>{
-    let { bounds, name, title } = await getActiveWindow()
-    title = title.slice(0,title.length-1)
-    
-    //console.log(title.splice(0,title.length-1))
-    robot.moveMouse(bounds.x+bounds.width-80, bounds.y+10);
-    robot.mouseClick("left");
-    setTimeout(()=>{
-        var img = robot.screen.capture(bounds.x, bounds.y);
-        screenCaptureToFile2(img,  `./tmp/${title}.png`)
-    },1000)
+    let { bounds, title } = await getActiveWindow()
+    title = title?.slice(0,title.length-1)
+    if(bounds){
+        robot.moveMouse(bounds.x+bounds.width-80, bounds.y+10);
+        robot.mouseClick("left");
+        setTimeout(()=>{
+            var img = robot.screen.capture(bounds?.x, bounds?.y);
+            screenCaptureToFile2(img,  `./tmp/${title}.png`)
+        },1000)
+    }
 },1000)
